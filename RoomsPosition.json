@@ -1,0 +1,77 @@
+{
+    "Rooms":
+      {
+        "A-1544": {
+
+            "modelId": "84a97ecc-e088-4087-a4db-b1cb60062415-00409821",
+            "name": "Expérimentation / Étudiants A-1544",
+            "position": {
+              "x": "17.91903066635132",
+              "y": "15.892271041870117",
+              "z": "0.5938320159912109"
+            },
+            "sensorTypes": [
+              "temperature"
+            ]
+
+        },
+        "A-1544.2": {
+
+            "modelId": "84a97ecc-e088-4087-a4db-b1cb60062415-00409821",
+            "name": "Salle des Serveurs/Entreposage A-1544.2",
+            "position": {
+              "x": "4.89924156665802",
+              "y": "15.892271041870117",
+              "z": "0.5938320159912109"
+            },
+            "sensorTypes": [
+              "temperature"
+            ]
+
+        },
+        "A-1540": {
+
+            "modelId": "84a97ecc-e088-4087-a4db-b1cb60062415-00409821",
+            "name": "Robotique A-1540",
+            "position": {
+              "x": "-18.551411628723145",
+              "y": "2.3123373985290527",
+              "z": "0.5938320159912109"
+            },
+            "sensorTypes": [
+              "temperature"
+            ]
+
+        },
+        "A-1542": {
+
+            "modelId": "84a97ecc-e088-4087-a4db-b1cb60062415-00409821",
+            "name": "Big Room-Multifonctionnelle A-1542",
+            "position": {
+              "x": "0.20505142211914062",
+              "y": "-0.8842639923095703",
+              "z": "0.5938320159912109"
+            },
+            "sensorTypes": [
+              "temperature"
+            ]
+
+        },
+        "A-1544.1": {
+
+            "modelId": "84a97ecc-e088-4087-a4db-b1cb60062415-00409821",
+            "name": "Admin A-1544.1",
+            "position": {
+              "x": "-9.246902227401733",
+              "y": "2.3324332237243652",
+              "z": "0.5938320159912109"
+            },
+            "sensorTypes": [
+              "temperature"
+            ]
+
+        }
+      }
+
+
+}
