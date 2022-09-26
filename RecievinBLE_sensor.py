@@ -33,7 +33,7 @@ async def scanner():
         if d.name == "Arduino":
             data={}
             async with BleakClient(d.address) as client:
-                client.connect()
+                await client.connect()
                 logger.info(f"Connected: {client.is_connected}")
 
                 for service in client.services:
