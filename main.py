@@ -11,15 +11,15 @@ BLEsensor = RecievinBLE_sensor
 async def main():
     while True:
         jSON_msg = None
-        try:
-            # Scanning BLEs to find the sensor, connect and read data
-            jSON_msg = await BLEsensor.scanner()
 
-        except Exception as Argument:
-            print(Argument)
+        try:
+            jSON_msg = await asyncio.wait_for(BLEsensor.scanner(), timeout=20.0)
+        except Exception as e:
+            print(e)
 
         print(type(jSON_msg), jSON_msg)
         if jSON_msg is not None:
+
             try:
                 # send data to Azure IoT hub
                 await DeviceManager.send_msg(jSON_msg)
