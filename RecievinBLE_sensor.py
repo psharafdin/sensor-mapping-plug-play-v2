@@ -30,11 +30,12 @@ async def scanner():
     devices = await BleakScanner.discover()
     for d in devices:
         print(d)
-        if d.name == "Arduino":
-            data={}
+        if "Arduino" in d.name:
+            data = {}
             async with BleakClient(d.address) as client:
-                await client.connect()
-                logger.info(f"Connected: {client.is_connected}")
+                if (not client.is_connected):
+                    await client.connect()
+                    logger.info(f"Connected: {client.is_connected}")
 
                 for service in client.services:
                     logger.info(f"[Service] {service}")
@@ -46,8 +47,8 @@ async def scanner():
                                     f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
                                 )
 
-                                if(char.description != "Vendor specific"):
-                                    if(char.description == "Location Name"):
+                                if (char.description != "Vendor specific"):
+                                    if (char.description == "Location Name"):
                                         data["Room"] = str(value.decode("utf-8"))
 
                                     if (char.description == "Device Name"):
@@ -76,14 +77,6 @@ async def scanner():
                                 f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
                             )
 
-                        for descriptor in char.descriptors:
-                            try:
-                                value = bytes(
-                                    await client.read_gatt_descriptor(descriptor.handle)
-                                )
-                                logger.info(f"\t\t[Descriptor] {descriptor}) | Value: {value}")
-                            except Exception as e:
-                                logger.error(f"\t\t[Descriptor] {descriptor}) | Value: {e}")
             JSON_msg = create_msg(data)
             return JSON_msg
 
