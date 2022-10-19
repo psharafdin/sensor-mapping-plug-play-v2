@@ -28,8 +28,10 @@ def create_msg(json_msg):
 
 async def scanner():
     devices = await BleakScanner.discover()
+    sensorlist = []
     for d in devices:
         print(d)
+
         if "Arduino" in d.name:
             data = {}
             async with BleakClient(d.address) as client:
@@ -77,8 +79,10 @@ async def scanner():
                                 f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
                             )
 
-            JSON_msg = create_msg(data)
-            return JSON_msg
+            sensorlist.append(create_msg(data))
+            print(create_msg(data))
+    print(sensorlist,type(sensorlist))
+    return sensorlist
 
 
 
