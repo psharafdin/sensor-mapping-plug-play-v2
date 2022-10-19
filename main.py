@@ -13,7 +13,7 @@ async def main():
         jSON_msg = None
 
         try:
-            jSON_msg = await asyncio.wait_for(BLEsensor.scanner(), timeout=20.0)
+            jSON_msg = await asyncio.wait_for(BLEsensor.scanner(), timeout=180.0)
         except Exception as e:
             print(e)
 
@@ -26,6 +26,6 @@ async def main():
             except Exception as Argument:
                 print("the device is created in IoT hub")
                 print(Argument)
-        time.sleep(6)
+        time.sleep(1)
 
 asyncio.run(main())
