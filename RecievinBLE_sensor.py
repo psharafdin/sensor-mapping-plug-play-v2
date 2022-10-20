@@ -48,22 +48,24 @@ async def scanner():
                                 logger.info(
                                     f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
                                 )
+                                try:
+                                    if (char.description != "Vendor specific"):
+                                        if (char.description == "Location Name"):
+                                            data["Room"] = str(value.decode("utf-8"))
 
-                                if (char.description != "Vendor specific"):
-                                    if (char.description == "Location Name"):
-                                        data["Room"] = str(value.decode("utf-8"))
+                                        if (char.description == "Device Name"):
+                                            data["DeviceID"] = str(value.decode("utf-8"))
 
-                                    if (char.description == "Device Name"):
-                                        data["DeviceID"] = str(value.decode("utf-8"))
+                                        if (char.description == "Temperature"):
 
-                                    if (char.description == "Temperature"):
-
-                                        data["Temperature"] = float(value.decode("utf-8"))
-                                    else:
-                                        try:
-                                            data[str(char.description)] = float(value.decode("utf-8"))
-                                        except:
-                                            print(char.description, ": the value is not a number")
+                                            data["Temperature"] = float(value.decode("utf-8"))
+                                        else:
+                                            try:
+                                                data[str(char.description)] = float(value.decode("utf-8"))
+                                            except:
+                                                print(char.description, ": the value is not a number")
+                                except:
+                                    continue
 
 
 

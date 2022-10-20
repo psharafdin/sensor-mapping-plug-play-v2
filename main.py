@@ -23,6 +23,7 @@ async def main():
                 try:
                     # send data to Azure IoT hub
                     await DeviceManager.send_msg(msg)
+                    print(len(msglist))
                 except Exception as Argument:
                     print("the device is created in IoT hub")
                     print(Argument)
