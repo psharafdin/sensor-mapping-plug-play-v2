@@ -32,18 +32,24 @@ async def scanner():
     for d in devices:
         print(d)
 
+
         if "Arduino" in d.name:
             data = {}
-            async with BleakClient(d.address) as client:
-                if (not client.is_connected):
-                    await client.connect()
-                    logger.info(f"Connected: {client.is_connected}")
+            try:
+                async with BleakClient(d.address) as client:
 
-                for service in client.services:
-                    logger.info(f"[Service] {service}")
-                    for char in service.characteristics:
-                        if "read" in char.properties:
-                            try:
+                    #This code is commented to check whether the hub connects to sensors here or not!
+
+                    # if (not client.is_connected):
+                    #     await client.connect()
+                    #     logger.info(f"Connected: {client.is_connected}")
+
+                    for service in client.services:
+
+                        logger.info(f"[Service] {service}")
+                        for char in service.characteristics:
+                            if "read" in char.properties:
+
                                 value = bytes(await client.read_gatt_char(char.uuid))
                                 logger.info(
                                     f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
@@ -64,23 +70,23 @@ async def scanner():
                                                 data[str(char.description)] = float(value.decode("utf-8"))
                                             except:
                                                 print(char.description, ": the value is not a number")
-                                except:
-                                    continue
 
 
 
 
-                            except Exception as e:
-                                logger.error(
-                                    f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {e}"
+
+                                except Exception as e:
+                                    logger.error(
+                                        f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {e}"
+                                    )
+
+                            else:
+                                value = None
+                                logger.info(
+                                    f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
                                 )
-
-                        else:
-                            value = None
-                            logger.info(
-                                f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
-                            )
-
+            except:
+                continue
             sensorlist.append(create_msg(data))
             print(create_msg(data))
     print(sensorlist,type(sensorlist))
