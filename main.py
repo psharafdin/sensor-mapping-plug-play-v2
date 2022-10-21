@@ -23,10 +23,15 @@ async def main():
                 try:
                     # send data to Azure IoT hub
                     await DeviceManager.send_msg(msg)
-                    print(len(msglist))
+
                 except Exception as Argument:
                     print("the device is created in IoT hub")
                     print(Argument)
+            if len(msglist) == 6:
+                print("successfully transmitted all sensors data to IoTHub!")
+
+            else:
+                print("Could not connect to ", 6 - len(msglist), " sensor(s) in this iteration!")
             time.sleep(1)
 
 asyncio.run(main())
