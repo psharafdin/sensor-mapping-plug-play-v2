@@ -55,6 +55,7 @@ async def scanner():
                                     f"\t[Characteristic] {char} ({','.join(char.properties)}), Value: {value}"
                                 )
                                 try:
+
                                     if (char.description != "Vendor specific"):
                                         if (char.description == "Location Name"):
                                             data["Room"] = str(value.decode("utf-8"))
@@ -65,6 +66,9 @@ async def scanner():
                                         if (char.description == "Temperature"):
 
                                             data["Temperature"] = float(value.decode("utf-8"))
+                                        if (char.description == "Analog"):
+
+                                            data["Decibel"] = float(value.decode("utf-8"))
                                         else:
                                             try:
                                                 data[str(char.description)] = float(value.decode("utf-8"))
@@ -87,6 +91,7 @@ async def scanner():
                                 )
             except:
                 continue
+
             sensorlist.append(create_msg(data))
             print(create_msg(data))
     print(sensorlist,type(sensorlist))
